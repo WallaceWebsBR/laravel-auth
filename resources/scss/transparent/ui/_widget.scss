@@ -1,0 +1,48 @@
+.widget {
+	overflow: hidden;
+	margin-bottom: rem(20px);
+	background: rgba($white, .15);
+	color: inherit;
+	padding: 0;
+	
+	& .widget-header {
+		border-bottom: 1px solid rgba($white, .15);
+		
+		@include display-flex();
+		@include flex-align(center);
+		
+		& .widget-header-title {
+			margin: 0;
+			font-size: $font-size-base;
+			padding: $spacer * 0.66 $spacer;
+			
+			@include flex(1);
+		}
+		& .widget-header-icon {
+			padding: $spacer * 0.66 $spacer;
+			
+			& + .widget-header-icon {
+				@if $enable-rtl {
+					padding-right: 0;
+				} @else {
+					padding-left: 0;
+				}
+			}
+		}
+	}
+	& .widget-body {
+		padding: $spacer;
+	}
+	
+	&.inverse-mode {
+		background: rgba($gray-900, .15);
+		
+		& .widget-header {
+			border-color: rgba($gray-900, .15);
+			color: $white;
+		}
+		& hr {
+			background: rgba($gray-900, .15);
+		}
+	}
+}

@@ -1,0 +1,38 @@
+.legend {
+	background: rgba($gray-900, .5);
+	border: 1px solid rgba($white, .15);
+	z-index: 1010;
+	& .legendLayer {
+		& .background {
+			fill: none;
+		}
+		& text {
+			fill: $white;
+		}
+	}
+}
+.flot-text {
+	& .tickLabel {
+		color: $white;
+		font-size: rem(12px);
+		font-weight: 600;
+	}
+}
+.flot-svg {
+	& .tickLabel {
+		fill: $white;
+	}
+}
+.flot-tooltip {
+	position: absolute;
+	display: none;
+	border: 0;
+	padding: rem(6px) rem(10px);
+	color: rgba($white, .9);
+	font-weight: 600;
+	font-size: rem(11px);
+	background: rgba($dark-darker, .85);
+	z-index: 10000 !important;
+	
+	@include border-radius($border-radius);
+}

@@ -1,0 +1,7 @@
+.widget-map {
+	background: rgba($white, .15);
+	
+	&.inverse-mode {
+		background: rgba($gray-900, .25);
+	}
+}

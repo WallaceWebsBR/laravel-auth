@@ -1,0 +1,11 @@
+.widget-map {
+	background: $white;
+	border: 1px solid $border-color-transparent;
+	
+	& .widget-list {
+		border: none;
+	}
+	&.inverse-mode {
+		background: $gray-900;
+	}
+}

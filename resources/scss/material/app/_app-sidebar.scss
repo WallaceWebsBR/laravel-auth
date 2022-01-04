@@ -1,0 +1,578 @@
+@include keyframes(appSidebarSubMenuSlideInRight) {
+	to {
+		@include transform(translate3d(0, 0, 0));
+	}
+}
+
+.app-sidebar {
+	width: $app-sidebar-width;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	padding-top: $app-header-height;
+	background: $gray-800;
+	z-index: $app-sidebar-zindex;
+	
+	@if $enable-rtl {
+		left: auto;
+		right: 0;
+	}
+	@include media-breakpoint-down(md) {
+		position: fixed;
+		padding-top: 0;
+		left: $app-sidebar-width * -1;
+		z-index: $app-header-zindex + 1;
+		
+		@if $enable-rtl {
+			left: auto;
+			right: $app-sidebar-width * -1;
+		}
+	}
+	
+	& .menu {
+		& .menu-profile {
+			padding: $app-sidebar-component-padding-x;
+			color: $white;
+			background: $gray-900;
+			overflow: hidden;
+			position: relative;
+		
+			& .menu-profile-link {
+				margin: -$app-sidebar-component-padding-x;
+				padding: $app-sidebar-component-padding-x;
+				display: block;
+				color: $white;
+				font-weight: $font-weight-bold;
+				text-decoration: none;
+				
+				&:hover {
+					& .menu-profile-cover {
+						&.with-shadow {
+							&:before {
+								opacity: 0.75;
+							}
+						}
+					}
+				}
+			}
+			& .menu-profile-image {
+				width: rem(50px);
+				height: rem(50px);
+				margin-bottom: rem(10px);
+				overflow: hidden;
+				position: relative;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+			
+				@include display-flex();
+				@include flex-align(center);
+				@include border-radius($border-radius-lg * 10);
+				
+				& img {
+					max-width: 100%;
+					max-height: 100%;
+				}
+				&.menu-profile-image-icon {
+					& i {
+						float: none;
+						display: block;
+						font-size: rem(24px);
+						text-align: center;
+						width: auto;
+						margin: 0 auto rem(-12px);
+					}
+				}
+			}
+			& .menu-profile-cover {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: $app-sidebar-menu-profile-cover;
+				background-repeat: no-repeat;
+				background-size: cover;
+			
+				&.with-shadow {
+					&:before {
+						content: '';
+						position: absolute;
+						left: 0;
+						right: 0;
+						top: 0;
+						bottom: 0;
+						background: rgba(shade-color($gray-900, 25%), .75);
+					
+						@include transition(all .2s linear);
+					}
+				}
+			}
+			& .menu-profile-info {
+				font-size: $font-size-lg;
+				position: relative;
+			
+				& small {
+					display: block;
+					font-weight: $font-weight-base;
+					color: $gray-300;
+					font-size: $font-size-base;
+					margin-bottom: rem(-3px);
+					line-height: 1;
+				}
+			}
+		}
+		& .menu-header {
+			margin: 0;
+			padding: rem(15px) rem(20px) rem(5px);
+			line-height: rem(20px);
+			font-size: rem(13px);
+			color: $white;
+			font-weight: $font-weight-normal;
+		}
+		& .menu-divider {
+			height: 1px;
+			background: $gray-900;
+			margin: $app-sidebar-component-padding-y 0;
+		}
+		& .menu-caret {
+			display: block;
+			width: rem(20px);
+			text-align: center;
+			font-size: rem(16px);
+			border: none;
+		
+			@include fontawesome();
+			@if $enable-rtl {
+				margin-right: auto;
+			} @else {
+				margin-left: auto;
+			}
+		
+			&:before {
+				content: '\f0da';
+				display: block;
+				text-align: center;
+				opacity: 0.5;
+			
+				@include transition(all .2s linear);
+				@if $enable-rtl {
+					content: '\f0d9';
+				}
+			}
+		}
+		& .menu-search {
+			padding: $app-sidebar-component-padding-x;
+			
+			& + .menu-item {
+				padding-top: 0;
+			}
+			& .form-control {
+				background: none;
+				border: none;
+				padding-left: 0;
+				padding-right: 0;
+				border-bottom: 1px solid rgba($white, .2);
+				color: $white;
+				
+				@include border-radius(0);
+				
+				&:focus {
+					border-color: rgba($white, .5);
+					
+					@include box-shadow(none);
+				}
+			}
+		}
+		
+		& .active:not(.closed):not(.closing),
+		& .expanding,
+		& .expand {
+			& > a {
+				& .menu-caret {
+					&:before {
+						opacity: 1.0;
+						
+						@include transform(rotate(90deg));
+						@if $enable-rtl {
+							@include transform(rotate(-90deg));
+						}
+					}
+				}
+			}
+		}
+		& .menu-item {
+			position: relative;
+					
+			& .menu-link {
+				padding: $app-sidebar-component-padding-y $app-sidebar-component-padding-x;
+				line-height: rem(20px);
+				color: $gray-200;
+				text-decoration: none;
+				font-weight: $font-weight-bold;
+				
+				@include display-flex();
+				@include flex-align(flex-start);
+				
+				& .menu-text {
+					@include flex(1);
+				}
+				& .menu-badge {
+					padding: 0 $badge-padding-x * 1.5;
+					background: $gray-900;
+					font-weight: $font-weight-bold;
+					font-size: rem(10px);
+					
+					@include border-radius($border-radius-lg * 2);
+				}
+				& .menu-label {
+					padding: $badge-padding-y $badge-padding-x;
+					font-size: 75%;
+					font-weight: $font-weight-bold;
+					color: $white;
+					text-align: center;
+					white-space: nowrap;
+					vertical-align: baseline;
+					background-color: $primary;
+					
+					@include border-radius($border-radius);
+					@include gradient-enabled {
+						@include gradient-linear(to bottom, (lighten($primary, 5%) 0%, darken($primary, 5%) 100%));
+					}
+					@if $enable-rtl {
+						margin-right: rem(5px);	
+					} @else {
+						margin-left: rem(5px);
+					}
+				}
+				&:hover,
+				&:focus {
+					background: none;
+					color: $white;
+				}
+			}
+			& .menu-icon {
+				width: rem(24px);
+				text-align: center;
+				line-height: rem(24px);
+				font-size: rem(20px);
+				margin-top: rem(-2px);
+				margin-bottom: rem(-2px);
+				color: $gray-600;
+				
+				@if $enable-rtl {
+					margin-left: rem(10px);
+				} @else {
+					margin-right: rem(10px);
+				}
+				@include display-flex();
+				@include flex-align(center);
+				@include flex-justify-content(center);
+				
+				& img {
+					max-width: 100%;
+					max-height: 100%;
+				}
+				& [class^="ion-"] {
+					font-size: rem(22px);
+					display: block;
+					
+					@if $enable-rtl {
+						margin-right: rem(-2px);
+						margin-left: rem(8px);
+					}
+				}
+			}
+			& .menu-icon-img {
+				margin-top: rem(-2px);
+				margin-bottom: rem(-2px);
+				width: rem(24px);
+				height: rem(24px);
+				overflow: hidden;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				
+				@include border-radius($border-radius);
+				@include display-flex();
+				@include flex-align(center);
+				@if $enable-rtl {
+					margin-left: rem(10px);
+				} @else {
+					margin-right: rem(10px);
+				}
+				
+				& img {
+					max-width: 100%;
+					max-height: 100%;
+					display: block;
+					margin: 0 auto;
+				}
+			}
+			& .menu-submenu {
+				padding: rem(10px) 0 rem(10px) rem(39px);
+				margin: 0;
+				position: relative;
+				display: none;
+				background: $gray-900;
+	
+				@if $enable-rtl {
+					padding-left: 0;
+					padding-right: rem(39px);
+				}
+				
+				& .menu-item {
+					@if $enable-rtl {
+						@include transform(translate3d(100%, 0, 0));
+					} @else {
+						@include transform(translate3d(-100%, 0, 0));
+					}
+					& .menu-link {
+						padding: rem(3px) rem(20px) rem(3px) rem(15px);
+						color: $gray-300;
+						text-decoration: none;
+						position: relative;
+						line-height: rem(20px);
+						font-weight: $font-weight-normal;
+						
+						@if $enable-rtl {
+							padding-right: rem(15px);
+							padding-left: rem(20px);
+						}
+						
+						&:hover,
+						&:focus {
+							color: $white;
+						}
+					}
+					&.active {
+						& > .menu-link {
+							background: none;
+							color: $white;
+						}
+					}
+					
+					& .menu-submenu {
+						padding: 0 0 0 rem(15px);
+						background: none;
+		
+						@if $enable-rtl {
+							padding-left: 0;
+							padding-right: rem(15px);
+						}
+					}
+				}
+			}
+			
+			&.active {
+				&.has-sub {
+					& > .menu-submenu {
+						display: block;
+					}
+				}
+				& > .menu-link {
+					position: relative;
+					z-index: 10;
+					color: $white;
+					background: $primary;
+					
+					@include gradient-enabled {
+						@if ($primary-color == 'yellow') {
+							color: $dark;	
+						}
+						@include gradient-linear(to bottom, (lighten($primary, 5%) 0%, darken($primary, 5%) 100%));
+					}
+					
+					& .menu-badge {
+						background: rgba($black, .65);
+					}
+					& .menu-icon {
+						color: $white;
+					}
+					& .menu-label {
+						background: rgba($black, .65);
+						
+						@include gradient-enabled {
+							@if ($primary-color == 'yellow') {
+								color: $white;	
+							}
+							background: rgba($black, .65);
+						}
+					}
+				}
+			}
+			&.expand,
+			&.active {
+				& > .menu-submenu {
+					& > .menu-item {
+						@include animation(appSidebarSubMenuSlideInRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1));
+					}
+				}
+			}
+		}
+		& .collapse {
+			& > .menu-item {
+				@if $enable-rtl {
+					@include transform(translate3d(100%, 0, 0));
+				} @else {
+					@include transform(translate3d(-100%, 0, 0));
+				}
+			}
+			&.expand {
+				& > .menu-item {
+					@include animation(appSidebarSubMenuSlideInRight 0.3s both cubic-bezier(0.7, 0, 0.3, 1));
+				}
+			}
+		}
+		
+		
+		@for $i from 2 through 50 {
+			$time: 15 + (15 * $i);
+			$delay: $time * 1ms;
+			
+			& .collapse.expand > .menu-item,
+			& .menu-item > .menu-submenu > .menu-item {
+				&:nth-child(#{$i}) {
+					-webkit-animation-delay: $delay;
+					animation-delay: $delay;
+				}
+			}
+		}
+	}
+	
+	& .app-sidebar-content {
+		position: relative;
+	}
+	& .app-sidebar-minify-btn {
+		margin: rem(10px) 0;
+		padding: rem(5px) rem(20px) rem(5px) rem(10px) !important;
+		background: $gray-900;
+		color: $white;
+		
+		@include border-radius($border-radius * 5 0 0 $border-radius * 5);
+		@if $enable-rtl {
+			@include border-radius(0 $border-radius * 5 $border-radius * 5 0);
+		}
+		
+		& i {
+			margin: 0 !important;
+			color: $white;
+		}
+		&:hover,
+		&:focus {
+			background: $gray-900;
+		}
+	}
+	&.app-sidebar-grid {
+		& .menu {
+			& > .menu-item {
+				& + .menu-item {
+					margin-top: -1px;
+				}
+				& > .menu-link {
+					border-top: 1px solid lighten($dark, 7.5%);
+					border-bottom: 1px solid lighten($dark, 7.5%);
+				}
+				
+				&.expanding,
+				&.expand {
+					& > a {
+						border-bottom-color: transparent;
+					}
+				}
+				&.active {
+					& > .menu-link {
+						border-color: $gray-800;
+					}
+				}
+			}
+		}
+	}
+	&.app-sidebar-transparent {
+		background: none;
+		
+		& + .app-sidebar-bg {
+			background: $app-sidebar-transparent-cover;
+			background-size: cover;
+			
+			&:before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba($gray-800, .75);
+			}
+		}
+		& .menu {
+			& .menu-profile {
+				background: rgba($black, .25);
+				
+				& a {
+					&:hover,
+					&:focus {
+						background: none;
+					}
+				}
+				& .menu-profile-cover {
+					background: none;
+					
+					&.with-shadow {
+						&:before {
+							background: none;
+						}
+					}
+				}
+				&.active {
+					background: rgba($black, .25);
+				}
+			}
+			& .menu-submenu {
+				background: rgba($black, .3);
+			}
+		}
+	}
+}
+.app-sidebar-bg {
+	background: $gray-800;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: $app-sidebar-width;
+	z-index: $app-sidebar-zindex - 10;
+	
+	@include box-shadow((0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)));
+	@if $enable-rtl {
+		left: auto;
+		right: 0;
+	}
+	@include media-breakpoint-down(md) {
+		padding-top: 0;
+		left: -$app-sidebar-width;
+		z-index: $app-header-zindex;
+		
+		@if $enable-rtl {
+			left: auto;
+			right: -$app-sidebar-width;
+		}
+	}
+}
+.app-sidebar-mobile-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: $app-sidebar-mobile-backdrop-zindex;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: 0;
+	margin: 0;
+	outline: none;
+	display: none;
+}
+

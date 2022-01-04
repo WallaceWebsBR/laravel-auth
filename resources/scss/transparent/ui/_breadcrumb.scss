@@ -1,0 +1,29 @@
+.breadcrumb {
+	padding: 0;
+	margin: 0;
+	background: none;
+	
+	& .breadcrumb-item {
+		line-height: rem(32px);
+		color: rgba($white, .75);
+		
+		& + .breadcrumb-item {
+			@if $enable-rtl {
+				padding-right: .5rem;
+				padding-left: 0;
+			}
+			
+			&:before {
+				@if $enable-rtl {
+					padding-right: 0;
+					padding-left: .5rem;
+					float: right;
+				}
+			}
+		}
+		& a {
+			color: tint-color($primary, 50%);
+			text-decoration: none;
+		}
+	}
+}

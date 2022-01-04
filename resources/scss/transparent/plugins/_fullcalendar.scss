@@ -1,0 +1,132 @@
+.fc {
+	@if $enable-rtl {
+		direction: rtl;
+	}
+	
+	& .fc-view {
+		background: rgba($white, .15);
+		
+		& table {
+			& > :not(caption) > * {
+				border-width: 1px 0;
+				border-color: $table-border-color;
+			
+				& > * {
+					border-width: 0 1px;
+					border-color: $table-border-color;
+					
+					&.fc-timegrid-divider {
+						background: $table-border-color;
+					}
+				}
+			}
+		}
+		& .fc-event {
+			&:not(.fc-h-event) {
+				&:hover {
+					background-color: rgba($gray-900, .5);
+					border-color: transparent;
+				}
+			}
+			&.fc-h-event {
+				background: rgba($gray-900, .35);
+				border-color: transparent;
+			}
+		}
+		& a {
+				text-decoration: none;
+		}
+	}
+	& .fc-event-dragging {
+		background-color: rgba($gray-900, .85) !important;
+		border-color: transparent !important;
+	}
+	& .fc-timeGridDay-view,
+	& .fc-timeGridWeek-view {
+		position: relative !important;
+		
+		& .fc-scroller-liquid-absolute {
+			position: relative !important;
+		}
+	}
+}
+.fc-event-list .fc-event {
+	background: none;
+	border: none;
+	color: $white;
+	font-size: $font-size-base;
+	line-height: $line-height-sm;
+	font-weight: $font-weight-bold;
+	position: relative;
+	background: rgba($gray-900, .25);
+	margin-bottom: $spacer / 2;
+	
+	@include border-radius($border-radius);
+	@include display-flex();
+	@if $enable-rtl {
+		padding: $spacer / 2 $spacer * 2.5 $spacer / 2 $spacer;
+	} @else {
+		padding: $spacer / 2 $spacer $spacer / 2 $spacer * 2.5;
+	}
+	
+	& + .fc-event {
+		margin-top: 0;
+	}
+	& .fc-event-text {
+		@include flex(1);
+	}
+	& .fc-event-icon {
+		@include display-flex();
+		@include flex-align(center);
+	}
+	&.ui-draggable-dragging {
+		background: rgba($gray-900, .75) !important;
+		border: 1px solid $border-color;
+	}
+	&:before {
+		content: '\f0b2';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: $spacer * 2;
+		text-align: center;
+		font-size: $font-size-lg;
+		background: rgba($gray-400, .5);
+		color: $gray-300;
+		
+		@include fontawesome();
+		@include display-flex();
+		@include flex-align(center);
+		@include flex-justify-content(center);
+		@if $enable-rtl {
+			right: 0;
+			@include border-radius(0 $border-radius $border-radius 0);
+		} @else {
+			left: 0;
+			@include border-radius($border-radius 0 0 $border-radius);
+		}
+	}
+	&:hover,
+	&:focus {
+		cursor: pointer;
+		background: rgba($gray-900, .35);
+		
+		&:before {
+			color: $white;
+		}
+	}
+}
+.fc-event.fc-event-dragging {
+	background: rgba($gray-700, .95);
+	position: relative;
+	padding: $spacer / 2 $spacer;
+	
+	@include box-shadow($box-shadow-lg);
+	@include display-flex();
+	@include flex-align(center);
+	@include border-radius($border-radius);
+	
+	& .fc-event-text {
+		@include flex(1);
+	}
+}

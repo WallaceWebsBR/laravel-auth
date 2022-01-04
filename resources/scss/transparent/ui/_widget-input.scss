@@ -1,0 +1,50 @@
+.widget-input-container {
+	@include display-flex();
+	@include flex-align(center);
+	
+	& .widget-input-icon {
+		padding: 0 $spacer / 3;
+		
+		& a {
+			display: block;
+			padding: $spacer * 0.66;
+			font-size: rem(18px);
+		}
+	}
+	& .widget-input-box {
+		padding: $spacer / 2.5 0;
+		
+		@include flex(1);
+		
+		& .form-control {
+			border-color: transparent;
+			background: rgba($white, .15);
+			
+			@include border-radius($border-radius * 10);
+			
+			&:focus {
+				@include box-shadow(none);
+			}
+		}
+	}
+	& .widget-input-divider {
+		width: rem(1px);
+		
+		&:after {
+			content: '';
+			width: rem(1px);
+			height: rem(26px);
+			background: rgba($white, .5);
+			display: block;
+		}
+	}
+}
+.inverse-mode {
+	& .widget-input-box {
+	}
+	& .widget-input-divider {
+		&:after {
+			background: $gray-700;
+		}
+	}
+}
