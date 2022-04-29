@@ -6,7 +6,7 @@
   "docs": "https://fullcalendar.io/docs/timegrid-view",
   "dependencies": {
     "@fullcalendar/common": "~5.10.1",
-    "@fullcalendar/daygrid": "~5.10.1",
+    "@fullcalendar/daygrid": "~5.11.0",
     "tslib": "^2.1.0"
   },
   "main": "main.cjs.js",
