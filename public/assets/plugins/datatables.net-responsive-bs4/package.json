@@ -22,7 +22,7 @@
     "dependencies": {
         "jquery": ">=1.7",
         "datatables.net-bs4": "^1.10.15",
-        "datatables.net-responsive": "2.2.9"
+        "datatables.net-responsive": "2.3.0"
     },
     "moduleType": [
         "globals",
