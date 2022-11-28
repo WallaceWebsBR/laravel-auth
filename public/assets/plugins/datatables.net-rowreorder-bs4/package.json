@@ -23,7 +23,7 @@
     "dependencies": {
         "jquery": ">=1.7",
         "datatables.net-bs4": "^1.10.15",
-        "datatables.net-rowreorder": "1.2.8"
+        "datatables.net-rowreorder": "1.3.0"
     },
     "moduleType": [
         "globals",
