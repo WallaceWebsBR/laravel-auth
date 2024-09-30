@@ -98,7 +98,7 @@
     "select2": "^4.0.13",
     "simple-line-icons": "^2.5.5",
     "spectrum-colorpicker2": "^2.0.8",
-    "summernote": "^0.8.18",
+    "summernote": "^0.9.0",
     "sweetalert": "^2.1.2",
     "swiper": "^6.7.1",
     "switchery": "github:abpetkov/switchery",
